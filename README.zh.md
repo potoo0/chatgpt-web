@@ -55,7 +55,12 @@
 1. 你应该首先使用 `API` 方式
 2. 使用 `API` 时，如果网络不通，那是国内被墙了，你需要自建代理，绝对不要使用别人的公开代理，那是危险的。
 3. 使用 `accessToken` 方式时反向代理将向第三方暴露您的访问令牌，这样做应该不会产生任何不良影响，但在使用这种方法之前请考虑风险。
-4. 使用 `accessToken` 时，不管你是国内还是国外的机器，都会使用代理。默认代理为 [pengzhile](https://github.com/pengzhile) 大佬的 `https://ai.fakeopen.com/api/conversation`，这不是后门也不是监听，除非你有能力自己翻过 `CF` 验证，用前请知悉。[社区代理](https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy)（注意：只有这两个是推荐，其他第三方来源，请自行甄别）
+4. 使用 `accessToken` 时，不管你是国内还是国外的机器，都会使用代理。
+   - [pengzhile](https://github.com/pengzhile)(*默认代理*) 大佬的 `https://ai.fakeopen.com/api/conversation`，这不是后门也不是监听，除非你有能力自己翻过 `CF` 验证，用前请知悉。
+   - [社区代理](https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy)（注意：只有这两个是推荐，其他第三方来源，请自行甄别）。
+   - 自建代理: 以使用 [ninja](https://github.com/gngpp/ninja) 为例:
+     1. 启动监听本地 7999 的服务: `./ninja start --bind 127.0.0.1:7999 --proxies http://localhost:20172`, proxies 指定代理(国内必需)
+     2. `service/.env` 文件中配置: `API_REVERSE_PROXY=http://localhost:7999/backend-api/conversation`
 5. 把项目发布到公共网络时，你应该设置 `AUTH_SECRET_KEY` 变量添加你的密码访问权限，你也应该修改 `index.html` 中的 `title`，防止被关键词搜索到。
 
 切换方式：

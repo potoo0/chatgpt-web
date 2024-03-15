@@ -55,7 +55,12 @@ Warnings:
 1. You should first use the `API` method
 2. When using the `API`, if the network is not working, it is blocked in China, you need to build your own proxy, never use someone else's public proxy, which is dangerous.
 3. When using the `accessToken` method, the reverse proxy will expose your access token to third parties. This should not have any adverse effects, but please consider the risks before using this method.
-4. When using `accessToken`, whether you are a domestic or foreign machine, proxies will be used. The default proxy is [pengzhile](https://github.com/pengzhile)'s `https://ai.fakeopen.com/api/conversation`. This is not a backdoor or monitoring unless you have the ability to flip over `CF` verification yourself. Use beforehand acknowledge. [Community Proxy](https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy) (Note: Only these two are recommended, other third-party sources, please identify for yourself)
+4. When using `accessToken`, whether you are a domestic or foreign machine, proxies will be used.
+   - [pengzhile](https://github.com/pengzhile)'s (*The default proxy*) `https://ai.fakeopen.com/api/conversation`. This is not a backdoor or monitoring unless you have the ability to flip over `CF` verification yourself. Use beforehand acknowledge.
+   - [Community Proxy](https://github.com/transitive-bullshit/chatgpt-api#reverse-proxy) (Note: Only these two are recommended, other third-party sources, please identify for yourself)
+   - Self-built proxy: Using [ninja](https://github.com/gngpp/ninja) as an example:
+     1. start ninja server to listening to *localhost:7999*: `./ninja start --bind 127.0.0.1:7999 --proxies http://localhost:20172`, proxies arg spec the proxy(required if china)
+     2. `service/.env` config: `API_REVERSE_PROXY=http://localhost:7999/backend-api/conversation`
 5. When publishing the project to public network, you should set the `AUTH_SECRET_KEY` variable to add your password access, you should also modify the `title` in `index. html` to prevent it from being searched by keywords.
 
 Switching methods:
