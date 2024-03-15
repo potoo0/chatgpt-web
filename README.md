@@ -302,6 +302,29 @@ pnpm prod
 
 PS: It is also okay to run `pnpm start` directly on the server without packing
 
+Or managed with systemd, here is an example of a config file:
+
+```ini
+[Unit]
+Description=Chatgpt-web
+After=network.target
+
+[Service]
+Type=simple
+Restart=on-failure
+User=root
+Group=root
+# path to the folder `service`
+WorkingDirectory=/opt/chatgpt-web/service
+# env for nvm, spec node version
+Environment=NODE_VERSION=v18.19.1
+# backend startup command
+ExecStart=/root/.nvm/nvm-exec pnpm prod
+
+[Install]
+WantedBy=multi-user.target
+```
+
 #### Frontend Webpage
 
 1. Modify the `VITE_GLOB_API_URL` field in the `.env` file at the root directory to your actual backend interface address

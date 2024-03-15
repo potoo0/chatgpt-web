@@ -305,6 +305,29 @@ pnpm prod
 
 PS: 不进行打包，直接在服务器上运行 `pnpm start` 也可
 
+或者使用 systemd 来管理, 配置文件示例:
+
+```ini
+[Unit]
+Description=Chatgpt-web
+After=network.target
+
+[Service]
+Type=simple
+Restart=on-failure
+User=root
+Group=root
+# `service` 的路径
+WorkingDirectory=/opt/chatgpt-web/service
+# nvm 的环境变量, 指定 node 版本
+Environment=NODE_VERSION=v18.19.1
+# 后端服务启动命令
+ExecStart=/root/.nvm/nvm-exec pnpm prod
+
+[Install]
+WantedBy=multi-user.target
+```
+
 #### 前端网页
 
 1、修改根目录下 `.env` 文件中的 `VITE_GLOB_API_URL` 为你的实际后端接口地址
